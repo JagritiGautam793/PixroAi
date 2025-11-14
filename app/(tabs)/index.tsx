@@ -91,6 +91,7 @@ const TEMPLATE_DATA = [
 
 const Index = () => {
   const [templates, setTemplates] = useState(TEMPLATE_DATA);
+  const [prompt, setPrompt] = useState("");
 
   const suggestedTemplates = templates.slice(0, 6);
   const monochromeTemplates = templates.slice(6, 12);
@@ -151,9 +152,13 @@ const Index = () => {
         </View>
 
         <View style={styles.describe}>
-          <Text style={styles.describeText}>
+          <TextInput
+            value={prompt}
+            onChangeText={setPrompt}
+            style={styles.describeText}
+          >
             Describe the scene around your product
-          </Text>
+          </TextInput>
           <Image
             style={styles.star}
             source={require("../../assets/image.png")}
