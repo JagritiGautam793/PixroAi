@@ -156,9 +156,9 @@ const Index = () => {
             value={prompt}
             onChangeText={setPrompt}
             style={styles.describeText}
-          >
-            Describe the scene around your product
-          </TextInput>
+            placeholder="Describe the scene around your product..."
+            placeholderTextColor="#CCCCCC"
+          />
           <Image
             style={styles.star}
             source={require("../../assets/image.png")}
@@ -301,6 +301,7 @@ const styles = StyleSheet.create({
     fontWeight: "400",
     fontSize: 13,
     color: "#CCCCCC",
+    marginTop: -10,
   },
   star: { width: 20, height: 20, position: "absolute", top: 60, right: 10 },
   heading1: {
