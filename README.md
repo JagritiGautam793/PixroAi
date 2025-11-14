@@ -1,50 +1,133 @@
-# Welcome to your Expo app 👋
+# PixroAi
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+A React Native photography template browsing app built with Expo.
 
-## Get started
+## What's Implemented
 
-1. Install dependencies
+- Photography templates screen with grid layout
+- Template selection (single selection at a time)
+- Category navigation bar (Home, Videos, Photography, In Action, Commercial)
+- Search input field
+- Scene description input field
+- Two template sections: "Suggested Templates" and "Monochrome"
+- Dark theme UI
 
-   ```bash
-   npm install
-   ```
+## Tech Stack
 
-2. Start the app
+- React Native 0.81.5
+- Expo ~54.0.23
+- TypeScript ~5.9.2
+- Expo Router for navigation
 
-   ```bash
-   npx expo start
-   ```
+## Prerequisites
 
-In the output, you'll find options to open the app in a
+- Node.js (version 18 or higher)
+- npm (comes with Node.js)
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+## Setup Instructions
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
+### Step 1: Clone the Repository
 
 ```bash
-npm run reset-project
+git clone <your-repo-url>
+cd pixroass
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+### Step 2: Install Dependencies
 
-## Learn more
+```bash
+npm install
+```
 
-To learn more about developing your project with Expo, look at the following resources:
+This will install all required packages. Wait for it to complete.
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+### Step 3: Start the Development Server
 
-## Join the community
+```bash
+npm start
+```
 
-Join our community of developers creating universal apps.
+You'll see a QR code and menu options in your terminal.
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+### Step 4: Run the App
+
+**Option A: Using Expo Go (Easiest)**
+
+1. Install "Expo Go" app on your phone:
+   - [Android Play Store](https://play.google.com/store/apps/details?id=host.exp.exponent)
+   - [iOS App Store](https://apps.apple.com/app/expo-go/id982107779)
+2. Scan the QR code from your terminal using the Expo Go app
+3. App will open on your phone
+
+**Option B: Using Android Emulator**
+
+1. Install Android Studio
+2. Set up an Android Virtual Device (AVD)
+3. Start the emulator
+4. Run:
+
+```bash
+npm run android
+```
+
+**Option C: Using iOS Simulator (Mac only)**
+
+1. Install Xcode from Mac App Store
+2. Install Command Line Tools
+3. Run:
+
+```bash
+npm run ios
+```
+
+## Troubleshooting
+
+**If `npm install` fails:**
+
+```bash
+rm -rf node_modules package-lock.json
+npm install
+```
+
+**If app doesn't load:**
+
+```bash
+npm start -- --clear
+```
+
+**Port already in use:**
+
+```bash
+npx expo start --port 8082
+```
+
+## Project Structure
+
+```
+app/
+├── (tabs)/
+│   ├── index.tsx    # Photography templates screen
+│   └── explore.tsx  # Empty explore screen
+├── _layout.tsx      # Root layout
+└── modal.tsx        # Modal screen
+
+assets/              # Images
+components/          # Reusable components
+└── TemplateCard.tsx # Template card component
+constants/          # Theme configuration
+hooks/              # Color scheme hooks
+```
+
+## Available Commands
+
+- `npm start` - Start development server
+- `npm run android` - Run on Android
+- `npm run ios` - Run on iOS
+- `npm run web` - Run on web
+- `npm run lint` - Run linter
+
+## Notes
+
+- The scroll indicator on Android may briefly appear during scrolling. This is default Android behavior.
+- Template images are loaded from picsum.photos
+- Only one template can be selected at a time
