@@ -2,6 +2,17 @@ import Feather from "@expo/vector-icons/Feather";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import React, { useState } from "react";
+import {
+  FlatList,
+  Image,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
+} from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
+import TemplateCard from "../../components/TemplateCard";
 
 const TEMPLATE_DATA = [
   {
@@ -78,19 +89,7 @@ const TEMPLATE_DATA = [
   },
 ];
 
-import {
-  FlatList,
-  Image,
-  ScrollView,
-  StyleSheet,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  View,
-} from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
-
-const index = () => {
+const Index = () => {
   const [templates, setTemplates] = useState(TEMPLATE_DATA);
 
   const suggestedTemplates = templates.slice(0, 6);
@@ -102,104 +101,33 @@ const index = () => {
         <View style={styles.header}>
           <Ionicons name="arrow-back" size={30} color="white" />
           <Text style={styles.text}>Photography</Text>
-
           <Image
             source={{ uri: "https://avatar.iran.liara.run/public/35" }}
-            style={{
-              width: 34,
-              height: 34,
-              borderRadius: 0.72,
-              borderColor: "#E0E0E0",
-            }}
+            style={styles.avatar}
           />
         </View>
 
-        <View
-          style={{
-            height: 30,
-            flexDirection: "row",
-            justifyContent: "space-between",
-            margin: 20,
-            marginTop: 22,
-          }}
-        >
-          <View style={{ alignItems: "center", justifyContent: "center" }}>
+        <View style={styles.iconContainer}>
+          <View style={styles.iconBox}>
             <Feather name="home" size={28} color="#00FF7F" />
-            <Text
-              style={{
-                color: "#7C878E",
-                fontFamily: "Regular",
-                fontSize: 10,
-                fontWeight: 400,
-                marginTop: 5,
-              }}
-            >
-              Home
-            </Text>
+            <Text style={styles.iconText}>Home</Text>
           </View>
-          <View
-            style={{
-              width: 2,
-              backgroundColor: "#454545",
-              marginHorizontal: 6,
-              alignSelf: "stretch",
-            }}
-          />
-          <View style={{ alignItems: "center", justifyContent: "center" }}>
+          <View style={styles.divider} />
+          <View style={styles.iconBox}>
             <Feather name="video" size={28} color="#15F5BA" />
-            <Text
-              style={{
-                color: "#7C878E",
-                fontFamily: "Regular",
-                fontSize: 10,
-                fontWeight: 400,
-                marginTop: 5,
-              }}
-            >
-              Videos
-            </Text>
+            <Text style={styles.iconText}>Videos</Text>
           </View>
-          <View style={{ alignItems: "center", justifyContent: "center" }}>
+          <View style={styles.iconBox}>
             <MaterialIcons name="photo-camera-back" size={28} color="#FF5580" />
-            <Text
-              style={{
-                color: "#7C878E",
-                fontFamily: "Regular",
-                fontSize: 10,
-                fontWeight: 400,
-                marginTop: 5,
-              }}
-            >
-              Photography
-            </Text>
+            <Text style={styles.iconText}>Photography</Text>
           </View>
-          <View style={{ alignItems: "center", justifyContent: "center" }}>
+          <View style={styles.iconBox}>
             <Feather name="smile" size={28} color="#EBF400" />
-            <Text
-              style={{
-                color: "#7C878E",
-                fontFamily: "Regular",
-                fontSize: 10,
-                fontWeight: 400,
-                marginTop: 5,
-              }}
-            >
-              In Action
-            </Text>
+            <Text style={styles.iconText}>In Action</Text>
           </View>
-          <View style={{ alignItems: "center", justifyContent: "center" }}>
+          <View style={styles.iconBox}>
             <Feather name="star" size={28} color="#FF8F00" />
-            <Text
-              style={{
-                color: "#7C878E",
-                fontFamily: "Regular",
-                fontSize: 10,
-                fontWeight: 400,
-                marginTop: 5,
-              }}
-            >
-              Commercial
-            </Text>
+            <Text style={styles.iconText}>Commercial</Text>
           </View>
         </View>
       </View>
@@ -215,7 +143,6 @@ const index = () => {
             color="#7C878E"
             style={{ marginLeft: 20 }}
           />
-
           <TextInput
             style={styles.inputText}
             placeholder="Search for keyword ‘flowers’..."
@@ -224,222 +151,81 @@ const index = () => {
         </View>
 
         <View style={styles.describe}>
-          <Text
-            style={{
-              fontFamily: "regular",
-              fontWeight: "400",
-              fontSize: 13,
-              color: "#CCCCCC",
-            }}
-          >
+          <Text style={styles.describeText}>
             Describe the scene around your product
           </Text>
-
           <Image
-            style={{
-              width: 20,
-              height: 20,
-              position: "absolute",
-              top: 60,
-              right: 10,
-            }}
+            style={styles.star}
             source={require("../../assets/image.png")}
           />
         </View>
 
-        {/* ---------- Templates Section ---------- */}
-        <View style={{ marginTop: 20 }}>
-          <Text
-            style={{
-              color: "#CCCCCC",
-              fontWeight: "400",
-              fontSize: 13,
-              fontFamily: "Regular",
-              marginLeft: 15,
-            }}
-          >
-            Or Try Suggested Templates
-          </Text>
-
-          <FlatList
-            style={{ marginTop: 20, padding: 2 }}
-            data={suggestedTemplates}
-            numColumns={3}
-            keyExtractor={(item) => item.id}
-            scrollEnabled={false}
-            showsVerticalScrollIndicator={false}
-            columnWrapperStyle={{
-              justifyContent: "space-between",
-              paddingHorizontal: 15,
-            }}
-            renderItem={({ item }) => (
-              <TouchableOpacity
-                style={{
-                  width: 110,
-                  marginBottom: 18,
-                  marginRight: 4,
-                }}
-                onPress={() => {
-                  setTemplates((prev) =>
-                    prev.map((t) =>
-                      t.id === item.id
-                        ? { ...t, isSelected: !t.isSelected }
-                        : { ...t, isSelected: false }
-                    )
-                  );
-                }}
-              >
-                <View
-                  style={{
-                    width: 105,
-                    height: 105,
-                    position: "relative",
-                    gap: 5,
-                  }}
-                >
-                  <Image
-                    source={{ uri: item.image }}
-                    style={{
-                      width: "100%",
-                      height: 105,
-                      borderRadius: 10,
-                      gap: 5,
-                    }}
-                  />
-
-                  {item.isSelected && (
-                    <View
-                      style={{
-                        position: "absolute",
-                        top: 1,
-                        right: -2,
-                        width: 30,
-                        height: 30,
-                        borderRadius: 18,
-                        alignItems: "center",
-                        justifyContent: "center",
-                      }}
-                    >
-                      <Ionicons
-                        name="checkmark-circle"
-                        size={30}
-                        color="#00FF7F"
-                        style={{
-                          position: "absolute",
-                          top: 5,
-                          right: 5,
-                        }}
-                      />
-                    </View>
-                  )}
-                </View>
-              </TouchableOpacity>
-            )}
-          />
-
-          {/* ---------- Monochrome Section ---------- */}
-          <View style={{ marginTop: 10 }}>
-            <Text
-              style={{
-                fontFamily: "Regular",
-                fontWeight: 400,
-                fontSize: 13,
-                color: "#CCCCCC",
-                marginLeft: 15,
-              }}
-            >
-              Monochrome
-            </Text>
-
-            <FlatList
-              style={{ marginTop: 20, padding: 2 }}
-              data={monochromeTemplates} // next 6
-              numColumns={3}
-              keyExtractor={(item) => item.id}
-              scrollEnabled={false}
-              showsVerticalScrollIndicator={false}
-              columnWrapperStyle={{
-                justifyContent: "space-between",
-                paddingHorizontal: 15,
-              }}
-              renderItem={({ item }) => (
-                <TouchableOpacity
-                  style={{
-                    width: 110,
-                    marginBottom: 18,
-                    marginRight: 4,
-                  }}
-                  onPress={() => {
-                    setTemplates((prev) =>
-                      prev.map((t) =>
-                        t.id === item.id
-                          ? { ...t, isSelected: !t.isSelected }
-                          : { ...t, isSelected: false }
-                      )
-                    );
-                  }}
-                >
-                  <View
-                    style={{
-                      width: "100%",
-                      height: 105,
-                      position: "relative",
-                      gap: 5,
-                    }}
-                  >
-                    <Image
-                      source={{ uri: item.image }}
-                      style={{
-                        width: 105,
-                        height: 105,
-                        borderRadius: 10,
-                        gap: 5,
-                      }}
-                    />
-
-                    {item.isSelected && (
-                      <View
-                        style={{
-                          position: "absolute",
-                          top: 1,
-                          right: -2,
-                          width: 30,
-                          height: 30,
-                          borderRadius: 18,
-                          alignItems: "center",
-                          justifyContent: "center",
-                        }}
-                      >
-                        <Ionicons
-                          name="checkmark-circle"
-                          size={30}
-                          color="#00FF7F"
-                          style={{
-                            position: "absolute",
-                            top: 5,
-                            right: 5,
-                          }}
-                        />
-                      </View>
-                    )}
-                  </View>
-                </TouchableOpacity>
-              )}
+        {/* Suggested Templates  */}
+        <Text style={styles.heading1}>Or Try Suggested Templates</Text>
+        <FlatList
+          style={{ marginTop: 20, padding: 2 }}
+          data={suggestedTemplates}
+          numColumns={3}
+          keyExtractor={(item) => item.id}
+          scrollEnabled={false}
+          showsVerticalScrollIndicator={false}
+          columnWrapperStyle={{
+            justifyContent: "space-between",
+            paddingHorizontal: 15,
+          }}
+          renderItem={({ item }) => (
+            <TemplateCard
+              item={item}
+              onPress={() =>
+                setTemplates((prev) =>
+                  prev.map((t) =>
+                    t.id === item.id
+                      ? { ...t, isSelected: !t.isSelected }
+                      : { ...t, isSelected: false }
+                  )
+                )
+              }
             />
-          </View>
-        </View>
+          )}
+        />
+
+        {/* Monochrome Templates */}
+        <Text style={styles.heading1}>Monochrome</Text>
+        <FlatList
+          style={{ marginTop: 20, padding: 2 }}
+          data={monochromeTemplates}
+          numColumns={3}
+          keyExtractor={(item) => item.id}
+          scrollEnabled={false}
+          showsVerticalScrollIndicator={false}
+          columnWrapperStyle={{
+            justifyContent: "space-between",
+            paddingHorizontal: 15,
+          }}
+          renderItem={({ item }) => (
+            <TemplateCard
+              item={item}
+              onPress={() =>
+                setTemplates((prev) =>
+                  prev.map((t) =>
+                    t.id === item.id
+                      ? { ...t, isSelected: !t.isSelected }
+                      : { ...t, isSelected: false }
+                  )
+                )
+              }
+            />
+          )}
+        />
       </ScrollView>
     </SafeAreaView>
   );
 };
 
-export default index;
+export default Index;
 
 const styles = StyleSheet.create({
-  container: {
-    backgroundColor: "#1A1D1E",
-    flex: 1,
-  },
+  container: { backgroundColor: "#1A1D1E", flex: 1 },
   header: {
     flexDirection: "row",
     justifyContent: "space-between",
@@ -453,6 +239,28 @@ const styles = StyleSheet.create({
     fontFamily: "Urbanist",
     fontWeight: 700,
     fontSize: 20,
+  },
+  avatar: { width: 34, height: 34, borderRadius: 0.72, borderColor: "#E0E0E0" },
+  iconContainer: {
+    height: 30,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    margin: 20,
+    marginTop: 22,
+  },
+  iconBox: { alignItems: "center", justifyContent: "center" },
+  iconText: {
+    color: "#7C878E",
+    fontFamily: "Regular",
+    fontSize: 10,
+    fontWeight: 400,
+    marginTop: 5,
+  },
+  divider: {
+    width: 2,
+    backgroundColor: "#454545",
+    marginHorizontal: 6,
+    alignSelf: "stretch",
   },
   input: {
     backgroundColor: "#343839",
@@ -482,5 +290,20 @@ const styles = StyleSheet.create({
     height: 100,
     padding: 15,
     position: "relative",
+  },
+  describeText: {
+    fontFamily: "Regular",
+    fontWeight: "400",
+    fontSize: 13,
+    color: "#CCCCCC",
+  },
+  star: { width: 20, height: 20, position: "absolute", top: 60, right: 10 },
+  heading1: {
+    color: "#CCCCCC",
+    fontWeight: "400",
+    fontSize: 13,
+    fontFamily: "Regular",
+    marginLeft: 15,
+    marginTop: 10,
   },
 });
